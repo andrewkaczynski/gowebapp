@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gowebapp
+  labels:
+    app: gowebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gowebapp
+  template:
+    metadata:
+      labels:
+        app: gowebapp
+    spec:
+      containers:
+      - name: gowebapp
+        image: andrewkaczynski/gowebapp:1.0
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        - name: CONTAINER_IMAGE
+          value: "andrewkaczynski/gowebapp:1.0"
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
